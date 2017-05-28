@@ -7,6 +7,7 @@
 # <bitbar.author>Warren Lindsey</bitbar.author>
 # <bitbar.author.github>elwarren</bitbar.author.github>
 # <bitbar.desc>Show Bitcoin BTC and Ripple XRP prices from Bitstamp</bitbar.desc>
+# <bitbar.image>http://i.imgur.com/AAFdAli.png</bitbar.image>
 # <bitbar.dependencies>jq,curl,bash</bitbar.dependencies>
 # <bitbar.abouturl>https://github.com/elwarren/bitbar-bitstamp-btc-xrp</bitbar.abouturl>
 

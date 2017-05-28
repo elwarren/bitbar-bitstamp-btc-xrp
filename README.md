@@ -1,6 +1,9 @@
 # Bitbar plugin bitbar-bitstamp-btc-xrp
 
 Show Bitcoin BTC and Ripple XRP prices from public [Bitstamp API](https://www.bitstamp.net/api/)
+
+![bitbar-bitstamp-btc-xrp](http://i.imgur.com/AAFdAli.png)
+
 Do not make more than 600 requests per 10 minutes or Bitstamp will ban your IP address.
 
 ## Setup
