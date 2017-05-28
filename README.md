@@ -2,6 +2,9 @@
 
 Show Bitcoin BTC and Ripple XRP prices from public [Bitstamp API](https://www.bitstamp.net/api/)
 Do not make more than 600 requests per 10 minutes or Bitstamp will ban your IP address.
+
+## Setup
+
 Trade data from last hour or last day, coin, and fiat configurable by filename:
 
 `bitstamp-btc-usd-h.1m.sh` show btc to usd rate over last hour fetched every 1 minute
@@ -16,6 +19,16 @@ Supported currency pairs:
 * xrp usd
 * xrp eur
 * xrp btc
+
+Quick setup:
+
+```
+$ brew install jq
+$ brew cask install bitbar
+$ mkdir -p ~/bin/bitbar
+$ cp bitstamp-btc-usd-h.1m.sh ~/bin/bitbar/bitstamp-btc-usd-h.1m.sh
+$ cp bitstamp-btc-usd-h.1m.sh ~/bin/bitbar/bitstamp-xrp-usd-h.1m.sh
+```
 
 ## License
 
