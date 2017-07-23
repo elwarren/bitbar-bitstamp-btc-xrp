@@ -3,7 +3,7 @@
 [ "$1" == "-d" ] && set -x
 #
 # <bitbar.title>Show Bitcoin BTC, Ripple XRP, Litecoin LTC prices from Bitstamp</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.version>v1.1</bitbar.version>
 # <bitbar.author>Warren Lindsey</bitbar.author>
 # <bitbar.author.github>elwarren</bitbar.author.github>
 # <bitbar.desc>Show Bitcoin BTC, Ripple XRP, and Litecoin LTC prices from Bitstamp</bitbar.desc>
