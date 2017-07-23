@@ -1,6 +1,6 @@
 # Bitbar plugin bitbar-bitstamp-btc-xrp
 
-Show Bitcoin BTC and Ripple XRP prices from public [Bitstamp API](https://www.bitstamp.net/api/)
+Show Bitcoin BTC, Ripple XRP, and Litecoin LTC prices from public [Bitstamp API](https://www.bitstamp.net/api/)
 
 ![bitbar-bitstamp-btc-xrp](http://i.imgur.com/AAFdAli.png)
 
@@ -14,6 +14,8 @@ Trade data from last hour or last day, coin, and fiat configurable by filename:
 
 `bitstamp-xrp-eur-d.5m.sh` show xrp to eur rate over last 24 hours fetched every 5 minutes
 
+`bitstamp-ltc-usd-d.5m.sh` show ltc to usd rate over last 24 hours fetched every 5 minutes
+
 Supported currency pairs:
 
 * btc usd
@@ -22,6 +24,9 @@ Supported currency pairs:
 * xrp usd
 * xrp eur
 * xrp btc
+* ltc usd
+* ltc eur
+* ltc btc
 
 Quick setup:
 
@@ -31,6 +36,7 @@ $ brew cask install bitbar
 $ mkdir -p ~/bin/bitbar
 $ cp bitstamp-btc-usd-h.1m.sh ~/bin/bitbar/bitstamp-btc-usd-h.1m.sh
 $ cp bitstamp-btc-usd-h.1m.sh ~/bin/bitbar/bitstamp-xrp-usd-h.1m.sh
+$ cp bitstamp-btc-usd-h.1m.sh ~/bin/bitbar/bitstamp-ltc-usd-h.1m.sh
 ```
 
 ## License
@@ -43,4 +49,8 @@ from https://www.iconfinder.com/icons/1175251/bitcoin_btc_cryptocurrency_icon#si
 
 "Ripple, xrp icon" by AllienWorks licensed under
 [Creative Commons (Attribution 3.0 Unported)](https://creativecommons.org/licenses/by/3.0/)
-from https://www.iconfinder.com/icons/1175251/bitcoin_btc_cryptocurrency_icon#size=16
+from https://www.iconfinder.com/icons/1175359/ripple_xrp_icon#size=16
+
+"Litecoin, ltc icon" by AllienWorks licensed under
+[Creative Commons (Attribution 3.0 Unported)](https://creativecommons.org/licenses/by/3.0/)
+from https://www.iconfinder.com/icons/1175272/litecoin_ltc_icon#size=16
