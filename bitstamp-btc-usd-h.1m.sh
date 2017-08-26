@@ -2,22 +2,23 @@
 # turn on debugging if we ask
 [ "$1" == "-d" ] && set -x
 #
-# <bitbar.title>Show Bitcoin BTC, Ripple XRP, Litecoin LTC prices from Bitstamp</bitbar.title>
-# <bitbar.version>v1.1</bitbar.version>
+# <bitbar.title>Show Bitcoin BTC, Ripple XRP, Litecoin LTC, and Ethereum ETH prices from Bitstamp</bitbar.title>
+# <bitbar.version>v1.2</bitbar.version>
 # <bitbar.author>Warren Lindsey</bitbar.author>
 # <bitbar.author.github>elwarren</bitbar.author.github>
-# <bitbar.desc>Show Bitcoin BTC, Ripple XRP, and Litecoin LTC prices from Bitstamp</bitbar.desc>
+# <bitbar.desc>Show Bitcoin BTC, Ripple XRP, Litecoin LTC, and Ethereum ETH prices from Bitstamp</bitbar.desc>
 # <bitbar.image>http://i.imgur.com/AAFdAli.png</bitbar.image>
 # <bitbar.dependencies>jq,curl,bash</bitbar.dependencies>
 # <bitbar.abouturl>https://github.com/elwarren/bitbar-bitstamp-btc-xrp</bitbar.abouturl>
 
-# Show Bitcoin BTC, Ripple XRP, and Litecoin LTC prices from public Bitstamp API https://www.bitstamp.net/api/
+# Show Bitcoin BTC, Ripple XRP, Litecoin LTC, and Ethereum ETH prices from public Bitstamp API https://www.bitstamp.net/api/
 # Do not make more than 600 requests per 10 minutes or Bitstamp will ban your IP address!
 # Trade data from last hour or last day, coin, and fiat configurable by filename:
 #
 # bitstamp-btc-usd-h.1m.sh show btc to usd rate over last hour fetched every 1 minute
 # bitstamp-xrp-eur-d.5m.sh show xrp to eur rate over last 24 hours fetched every 5 minutes
 # bitstamp-ltc-usd-d.5m.sh show ltc to usd rate over last 24 hours fetched every 5 minutes
+# bitstamp-eth-usd-d.5m.sh show ltc to usd rate over last 24 hours fetched every 5 minutes
 #
 # Supported currency pairs:
 # btc usd
@@ -29,6 +30,9 @@
 # ltc usd
 # ltc eur
 # ltc btc
+# eth usd
+# eth eur
+# eth btc
 
 # parse options out of filename bitstamp-btc-usd-h.1m.sh
 # the spaces are required for negative offset
@@ -55,12 +59,19 @@ ICON_XRP="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABMElEQVQ4T43Tv0uWYRTG8c
 # from https://www.iconfinder.com/icons/1175272/litecoin_ltc_icon#size=16
 ICON_LTC="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABE0lEQVQ4T5XSPyhHURjG8c+PMrHIYPFnwMCobLKyGETZpEQGmwyyGww2ZLBQSrJYjEaDTDb5n0H5DTYD0amjTrr3dty6dbvv83zP+7zvqSl+BnGZlMZxWiStlQAWsZXU2vH6H8AeZqPhCV0lBynr4BoD0XSMqfgdooV39xdYBGjGOxqiaAWbWMUaZnBYBRjBedLyPOYwFOcQOnipAixjIwF8oREnWMBbOo+iCEdJ5qANcZawn7uFe3RHcbgLE3jO2UIbtjGZiMN92Ckzh/9phEd0/hGHgV3lADpwiwf0RsMHWvCZA+hHE9YxGg0XGK4wh+18/91CHa1VJya1MZylgB7cZJqDLAy9ngKmcZAJuENf0P4A/HEtEf0rUI8AAAAASUVORK5CYII="
 
+# "Eth, ether, ethereum icon" by AllienWorks licensed under
+# Creative Commons (Attribution 3.0 Unported) https://creativecommons.org/licenses/by/3.0/
+# from https://www.iconfinder.com/icons/1175230/eth_ether_ethereum_icon#size=16
+ICON_ETH="iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAB0ElEQVQ4T42Tu2sVURDGv5ldCahYKKny2CcoxFgELGKT2KSKjZWgRUgvhnQWFrYK0Yj/gIWksggJQXygpWLhRRFFdvfuWVaxUHzARQm7M7L3cuEad8Od8pxvfnxzzjeEfcqf9BcZSlHW3mqSUdNFGIZH8Kd4qZbmpLoSZdm7Om0jwHfcNRJZBlOraoyNmR8aEEwEJ4WL1yza6QFoTqGXEmPu74XUOvAm3GfMmIfIzz4Agi80Yh+PoujXIOQ/QOC6F6DYqEQCzS2gpaDFbhNhPU7TlUbA1OjU4d8HOx8I2iGiHYiOKuGzArYKzTLjtDDNtNvtN33IPw5CzzunBeaU9SwBM3tGSGFhUwGTpOmtWoDvOMsA3SHgUFcw+Aa9jpIUN6MsvVoLCBznjM38rRRcU+jFQYAInltsr4ruHk2y7Gkt4MTY2LFd+8AjUloHyhhkXYeWOcHaFpTfQXwDJS8lefK2FlAdhp63oKIPRfGCIZfFsr5yoWtgnCfCajQwf+9jaipw3dtQXIHghwCtbiagT2JjFgDovjnougjDES2KVyhlsgoSgaa5LE59zPNPQyWxEvnj/jRR8VjA74n1bmLMg6F3oS8MXHepshyn6b2mrf0LFe/HEYAOCAkAAAAASUVORK5CYII="
+
 URL_H_BTC="https://www.bitstamp.net/api/v2/ticker_hour/btcusd/"
 URL_D_BTC="https://www.bitstamp.net/api/v2/ticker/btcusd/"
 URL_H_XRP="https://www.bitstamp.net/api/v2/ticker_hour/xrpusd/"
 URL_D_XRP="https://www.bitstamp.net/api/v2/ticker/xrpusd/"
 URL_H_LTC="https://www.bitstamp.net/api/v2/ticker_hour/ltcusd/"
 URL_D_LTC="https://www.bitstamp.net/api/v2/ticker/ltcusd/"
+URL_H_ETH="https://www.bitstamp.net/api/v2/ticker_hour/ethusd/"
+URL_D_ETH="https://www.bitstamp.net/api/v2/ticker/ethusd/"
 
 if [ ${TIME} == "hour" ];then
     URL="https://www.bitstamp.net/api/v2/ticker_hour/${COIN}${CURRENCY}/"
@@ -83,6 +94,7 @@ ts=$(/bin/date -r $timestamp)
 [ ${COIN} == btc ]&&echo "${last}|templateImage=${ICON_BTC}"
 [ ${COIN} == xrp ]&&echo "${last}|templateImage=${ICON_XRP}"
 [ ${COIN} == ltc ]&&echo "${last}|templateImage=${ICON_LTC}"
+[ ${COIN} == eth ]&&echo "${last}|templateImage=${ICON_ETH}"
 echo "---"
 echo "${COIN} / ${CURRENCY} last ${TIME}|href=https://www.bitstamp.net/market/tradeview/"
 echo "---"
