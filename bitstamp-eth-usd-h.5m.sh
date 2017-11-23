@@ -1,0 +1,1 @@
+bitstamp-btc-usd-h.1m.sh
